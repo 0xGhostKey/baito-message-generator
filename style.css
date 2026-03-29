@@ -1,0 +1,433 @@
+/* ============================================================
+   バイト連絡文メーカー — スタイルシート
+   ============================================================ */
+
+/* ---- CSS変数（色・サイズの一元管理） ---- */
+:root {
+  --primary:       #6366f1;   /* メインカラー（インディゴ） */
+  --primary-dark:  #4f46e5;   /* ホバー時の濃い色 */
+  --primary-light: #e0e7ff;   /* 選択ボタンの背景など */
+  --bg:            #f4f5fb;   /* ページ背景 */
+  --card:          #ffffff;   /* カード背景 */
+  --text:          #1e293b;   /* 本文テキスト */
+  --text-sub:      #64748b;   /* サブテキスト */
+  --border:        #e2e8f0;   /* 枠線 */
+  --success:       #10b981;   /* コピー完了などの緑色 */
+  --radius:        14px;      /* 角丸の基準サイズ */
+  --shadow:        0 2px 16px rgba(99, 102, 241, 0.10);
+}
+
+/* ---- リセット & ベース ---- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+/* ---- 全体の横幅制限（スマホ〜PC対応） ---- */
+.container {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 16px 48px;
+}
+
+/* ============================================================
+   ヘッダー
+   ============================================================ */
+.header {
+  text-align: center;
+  padding: 48px 16px 32px;
+}
+
+.header-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  /* テキストにグラデーションを適用 */
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header-sub {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: var(--text-sub);
+  line-height: 1.6;
+}
+
+/* ============================================================
+   よく使う例セクション
+   ============================================================ */
+.quick-section {
+  margin-bottom: 20px;
+}
+
+/* セクションラベル（日本語向けにシンプルなスタイル） */
+.section-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-sub);
+  letter-spacing: 0.03em;
+  margin-bottom: 10px;
+}
+
+/* 3カード横並びグリッド */
+.quick-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+/* 各カードボタン */
+.quick-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 8px;
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-family: inherit;
+  text-align: center;
+  transition: all 0.18s ease;
+  box-shadow: var(--shadow);
+}
+
+.quick-card:hover {
+  border-color: var(--primary);
+  background: var(--primary-light);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.15);
+}
+
+.quick-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.quick-name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.quick-sub {
+  font-size: 0.72rem;
+  color: var(--text-sub);
+}
+
+/* ============================================================
+   カード（フォームと結果の共通スタイル）
+   ============================================================ */
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 28px 24px;
+  margin-bottom: 20px;
+}
+
+/* ============================================================
+   フォーム共通
+   ============================================================ */
+.form-group {
+  margin-bottom: 24px;
+}
+
+/* ラベル（日本語向けにシンプルなスタイル） */
+.form-label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-sub);
+  letter-spacing: 0.03em;
+  margin-bottom: 10px;
+}
+
+/* 「任意」バッジ */
+.optional-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  background: var(--primary-light);
+  color: var(--primary);
+  padding: 1px 7px;
+  border-radius: 20px;
+  margin-left: 8px;
+  vertical-align: middle;
+  letter-spacing: 0;
+}
+
+/* ============================================================
+   選択ボタングループ（ピル型トグルボタン）
+   ============================================================ */
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;   /* はみ出した場合に折り返す */
+  gap: 8px;
+}
+
+.select-btn {
+  padding: 8px 18px;
+  border: 2px solid var(--border);
+  border-radius: 100px;   /* 完全な楕円（ピル型） */
+  background: transparent;
+  color: var(--text-sub);
+  font-size: 0.9rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+/* ホバー時 */
+.select-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--primary-light);
+}
+
+/* 選択中（activeクラス付きのとき） */
+.select-btn.active {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* ============================================================
+   補足テキストエリア
+   ============================================================ */
+.note-input {
+  width: 100%;
+  min-height: 72px;
+  padding: 12px 14px;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  font-size: 0.92rem;
+  font-family: inherit;
+  color: var(--text);
+  resize: vertical;
+  transition: border-color 0.18s ease;
+  outline: none;
+}
+
+.note-input:focus {
+  border-color: var(--primary);
+}
+
+.note-input::placeholder {
+  color: #b0bac9;
+}
+
+/* ============================================================
+   生成ボタン
+   ============================================================ */
+.generate-btn {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: inherit;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  letter-spacing: 0.03em;
+  transition: opacity 0.18s ease, transform 0.12s ease;
+  margin-top: 4px;
+}
+
+.generate-btn:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.generate-btn:active {
+  transform: translateY(0);
+}
+
+/* ============================================================
+   結果エリア
+   ============================================================ */
+
+/* 非表示クラス */
+.hidden {
+  display: none !important;
+}
+
+/* 表示アニメーション */
+.result-area {
+  animation: fadeInUp 0.3s ease both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ラベルと「編集できます」ヒントを横並びにする行 */
+.result-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+/* 「直接編集できます」の小さなヒントテキスト */
+.edit-hint {
+  font-size: 0.75rem;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* メッセージ本文テキストエリア（編集可能） */
+.result-text {
+  display: block;           /* textarea はインライン要素なので block に */
+  width: 100%;
+  min-height: 140px;        /* 短い文でも見やすい高さを確保 */
+  background: #f8f9ff;
+  border: 1.5px solid var(--primary-light);
+  border-radius: 10px;
+  padding: 18px 16px;
+  font-size: 0.95rem;
+  font-family: inherit;     /* サイト全体のフォントを引き継ぐ */
+  line-height: 1.9;
+  color: var(--text);
+  resize: vertical;         /* 縦方向のみリサイズ可 */
+  outline: none;
+  transition: border-color 0.18s ease;
+  margin-bottom: 16px;
+  /* form-labelの上にある .result-label-row が margin-bottom を持つので不要になった分を調整 */
+}
+
+/* フォーカス時に枠線をプライマリカラーに */
+.result-text:focus {
+  border-color: var(--primary);
+}
+
+/* ボタン行（コピー + 別パターン） */
+.result-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* コピーボタン */
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 22px;
+  background: var(--primary);
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-family: inherit;
+  border: 2px solid var(--primary);
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.copy-btn:hover {
+  opacity: 0.85;
+}
+
+/* 別パターンボタン */
+.variant-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 22px;
+  background: transparent;
+  color: var(--text-sub);
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: inherit;
+  border: 2px solid var(--border);
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.variant-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--primary-light);
+}
+
+/* コピー完了メッセージ */
+.copy-success {
+  display: inline-block;
+  color: var(--success);
+  font-size: 0.88rem;
+  font-weight: 600;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ============================================================
+   フッター
+   ============================================================ */
+.footer {
+  text-align: center;
+  padding: 16px 0 8px;
+  color: var(--text-sub);
+  font-size: 0.78rem;
+}
+
+/* ============================================================
+   レスポンシブ（スマホ対応の微調整）
+   ============================================================ */
+@media (max-width: 480px) {
+  .header-title {
+    font-size: 1.5rem;
+  }
+
+  .card {
+    padding: 22px 18px;
+  }
+
+  .select-btn {
+    padding: 7px 14px;
+    font-size: 0.85rem;
+  }
+
+  /* スマホではよく使う例を少し縦長に */
+  .quick-card {
+    padding: 12px 6px;
+  }
+
+  .quick-icon {
+    font-size: 1.3rem;
+  }
+
+  .quick-name {
+    font-size: 0.82rem;
+  }
+}

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <!-- スマホでも正しいサイズで表示されるように設定 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>バイト連絡文メーカー</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- ===== ヘッダー ===== -->
+    <header class="header">
+      <h1 class="header-title">バイト連絡文メーカー</h1>
+      <!-- 4. 説明文を追加 -->
+      <p class="header-sub">バイトや仕事で使える連絡文を、状況に合わせてすぐ作成できます。</p>
+    </header>
+
+    <!-- ===== メインコンテンツ ===== -->
+    <main>
+
+      <!-- ===== 3. よく使う例セクション ===== -->
+      <section class="quick-section">
+        <p class="section-label">よく使う例</p>
+        <div class="quick-list">
+          <!-- data属性で選択値を管理。クリックするとフォームに自動入力される -->
+          <button class="quick-card"
+                  data-purpose="遅刻"
+                  data-relation="店長"
+                  data-polite="丁寧"
+                  data-length="普通"
+                  data-note="">
+            <span class="quick-icon">⏰</span>
+            <span class="quick-name">遅刻連絡</span>
+            <span class="quick-sub">店長・丁寧</span>
+          </button>
+          <button class="quick-card"
+                  data-purpose="体調不良"
+                  data-relation="店長"
+                  data-polite="丁寧"
+                  data-length="普通"
+                  data-note="">
+            <span class="quick-icon">🤒</span>
+            <span class="quick-name">体調不良</span>
+            <span class="quick-sub">店長・丁寧</span>
+          </button>
+          <button class="quick-card"
+                  data-purpose="シフト相談"
+                  data-relation="上司"
+                  data-polite="普通"
+                  data-length="普通"
+                  data-note="">
+            <span class="quick-icon">📅</span>
+            <span class="quick-name">シフト相談</span>
+            <span class="quick-sub">上司・普通</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- ===== 入力フォームカード ===== -->
+      <!-- id="formCard" → よく使う例からスクロールするためのターゲット -->
+      <section class="card" id="formCard">
+
+        <!-- 1. 用途 -->
+        <div class="form-group">
+          <p class="form-label">用途</p>
+          <div class="btn-group">
+            <button class="select-btn active" data-group="purpose" data-value="遅刻">遅刻</button>
+            <button class="select-btn" data-group="purpose" data-value="欠勤">欠勤</button>
+            <button class="select-btn" data-group="purpose" data-value="体調不良">体調不良</button>
+            <button class="select-btn" data-group="purpose" data-value="シフト相談">シフト相談</button>
+            <button class="select-btn" data-group="purpose" data-value="退職連絡">退職連絡</button>
+            <button class="select-btn" data-group="purpose" data-value="お礼">お礼</button>
+          </div>
+        </div>
+
+        <!-- 2. 相手との関係 -->
+        <div class="form-group">
+          <p class="form-label">相手との関係</p>
+          <div class="btn-group">
+            <button class="select-btn active" data-group="relation" data-value="店長">店長</button>
+            <button class="select-btn" data-group="relation" data-value="上司">上司</button>
+            <button class="select-btn" data-group="relation" data-value="先輩">先輩</button>
+            <button class="select-btn" data-group="relation" data-value="同僚">同僚</button>
+          </div>
+        </div>
+
+        <!-- 3. 丁寧さ -->
+        <div class="form-group">
+          <p class="form-label">丁寧さ</p>
+          <div class="btn-group">
+            <button class="select-btn active" data-group="polite" data-value="普通">普通</button>
+            <button class="select-btn" data-group="polite" data-value="丁寧">丁寧</button>
+            <button class="select-btn" data-group="polite" data-value="かなり丁寧">かなり丁寧</button>
+          </div>
+        </div>
+
+        <!-- 4. 文字数（新規追加） -->
+        <div class="form-group">
+          <p class="form-label">文字数</p>
+          <div class="btn-group">
+            <button class="select-btn" data-group="length" data-value="短め">短め</button>
+            <button class="select-btn active" data-group="length" data-value="普通">普通</button>
+            <button class="select-btn" data-group="length" data-value="長め">長め</button>
+          </div>
+        </div>
+
+        <!-- 5. 補足・自由入力 -->
+        <div class="form-group">
+          <label class="form-label" for="note">補足・事情
+            <span class="optional-badge">任意</span>
+          </label>
+          <textarea
+            id="note"
+            class="note-input"
+            placeholder="例：電車が遅延しています / 熱が38度あります / ○日〜△日希望"
+            maxlength="100"
+          ></textarea>
+        </div>
+
+        <!-- 生成ボタン -->
+        <button id="generateBtn" class="generate-btn">メッセージを生成する</button>
+
+      </section>
+
+      <!-- ===== 結果表示エリア（最初は非表示） ===== -->
+      <section class="card result-area hidden" id="resultArea">
+
+        <!-- ラベル + 編集可能であることのヒント -->
+        <div class="result-label-row">
+          <p class="form-label">生成されたメッセージ</p>
+          <span class="edit-hint">✏️ 直接編集できます</span>
+        </div>
+
+        <!-- textarea に変更：生成後そのまま編集できる -->
+        <textarea id="resultText" class="result-text"></textarea>
+
+        <!-- ボタン行: コピー と 別パターン -->
+        <div class="result-actions">
+          <button id="copyBtn" class="copy-btn">コピーする</button>
+          <!-- 2. 別パターンボタン（新規追加） -->
+          <button id="variantBtn" class="variant-btn">別パターンを作る</button>
+        </div>
+
+        <!-- コピー完了メッセージ（コピー後に一時表示） -->
+        <p id="copySuccess" class="copy-success hidden">コピーしました！</p>
+
+      </section>
+
+    </main>
+
+    <!-- ===== フッター ===== -->
+    <footer class="footer">
+      <p>バイト連絡文メーカー &copy; 2025</p>
+    </footer>
+
+  </div>
+
+  <!-- JavaScript（DOM構築後に読み込む） -->
+  <script src="script.js"></script>
+
+</body>
+</html>
